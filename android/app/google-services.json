@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "672580060275",
+    "firebase_url": "https://rngdriveapiwrappertest.firebaseio.com",
+    "project_id": "rngdriveapiwrappertest",
+    "storage_bucket": "rngdriveapiwrappertest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672580060275:android:1e05e2f86bbb5090",
+        "android_client_info": {
+          "package_name": "ru.rshalimov.tries.gdrivetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672580060275-3avp6gl64u8ms2or08lbvd50lmvqsmk6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.rshalimov.tries.gdrivetest",
+            "certificate_hash": "cc5ff60dd5156e7834c47e39b9583c789bed41db"
+          }
+        },
+        {
+          "client_id": "672580060275-a0hfokik29kh8sgv5mllam1rtch45thq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.rshalimov.tries.gdrivetest",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "672580060275-lkvpqasd3bda7if0oe7bqsn6f1qf5avm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXLUCZ_2IQHGQch7Kw90pnxH4o2Matj28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672580060275-lkvpqasd3bda7if0oe7bqsn6f1qf5avm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
