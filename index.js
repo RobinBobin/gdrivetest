@@ -3,7 +3,12 @@
  * @flow strict-local
  */
 
- import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import {
+  Files,
+  GDrive,
+  blobToByteArray
+} from "@robinbobin/react-native-google-drive-api-wrapper";
 import React, {
   useEffect
 } from "react";
@@ -21,12 +26,21 @@ function App() {
         "https://www.googleapis.com/auth/drive.appfolder"
       ]});
     
-    (async () =>{
+    (async () => {
       try {
         await GoogleSignin.hasPlayServices();
         await GoogleSignin.signIn();
         
-        console.log((await GoogleSignin.getTokens()).accessToken);
+        global.gdrive = new GDrive();
+        
+        global.gdrive.accessToken = (await GoogleSignin.getTokens()).accessToken;
+        global.gdrive.files = new Files();
+        
+        // const list = await (await global.gdrive.files.list()).json();
+        
+        console.log(await (await global.gdrive.files.get("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", {alt: "media"})).text());
+        
+        console.log(await blobToByteArray(await (await global.gdrive.files.get("1qXgpUYTOc4b4wUzMkIk31MeKBH8KFJYF", {alt: "media"})).blob()));
       } catch (error) {
         console.log("oops", error, error.code);
       }
