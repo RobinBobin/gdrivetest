@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "672580060275-mj49r1jlhpnsp9avm6jlaukp9ksbi0ar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.rshalimov.tries.gdrivetest",
+            "certificate_hash": "26b02abfd5867b435c3cdba12c14e72c8448c35c"
+          }
+        },
+        {
           "client_id": "672580060275-lkvpqasd3bda7if0oe7bqsn6f1qf5avm.apps.googleusercontent.com",
           "client_type": 3
         }

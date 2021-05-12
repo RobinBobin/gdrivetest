@@ -36,11 +36,11 @@ function App() {
         global.gdrive.accessToken = (await GoogleSignin.getTokens()).accessToken;
         global.gdrive.files = new Files();
         
-        // const list = await (await global.gdrive.files.list()).json();
+        // console.log(await (await global.gdrive.files.list()).json());
         
         console.log(await (await global.gdrive.files.get("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", {alt: "media"})).text());
         
-        console.log(await blobToByteArray(await (await global.gdrive.files.get("1qXgpUYTOc4b4wUzMkIk31MeKBH8KFJYF", {alt: "media"})).blob()));
+        console.log(Array.from(await blobToByteArray(await (await global.gdrive.files.get("1qXgpUYTOc4b4wUzMkIk31MeKBH8KFJYF", {alt: "media"})).blob())));
       } catch (error) {
         console.log("oops", error, error.code);
       }
