@@ -82,15 +82,22 @@ function App() {
         //   .execute());
         
         // console.log(await gdrive.files.newMultipartUploader()
-        //   // .setIdOfFileToUpdate("10pxt9J5dj4VQ_2YA_2WMueTUGWjnqPwO")
         //   .setData("Hooray!!!", MimeTypes.TEXT)
         //   .setIdOfFileToUpdate("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp")
+        //   // .setIdOfFileToUpdate("10pxt9J5dj4VQ_2YA_2WMueTUGWjnqPwO")
         //   .setRequestBody({
         //     name: "text_changed_Hooray!!!"
         //   })
         //   .execute());
         
-        console.log(await gdrive.about.get({fields: "user"}));
+        // console.log(await gdrive.about.get({fields: "user"}));
+        
+        // console.log(await gdrive.permissions.create("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", null, {
+        //   role: "writer",
+        //   type: "anyone"
+        // }));
+        
+        // console.log(`result: '${await gdrive.permissions.delete("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", "anyoneWithLink")}'`);
         
         console.log("ok");
       } catch (error) {
