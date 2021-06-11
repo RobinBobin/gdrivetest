@@ -6,6 +6,7 @@
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import {
   GDrive,
+  ListQueryBuilder,
   MimeTypes
 } from "@robinbobin/react-native-google-drive-api-wrapper";
 import React, {
@@ -36,9 +37,28 @@ function App() {
         // gdrive.files.fetchCoercesTypes = true;
         // gdrive.files.fetchRejectsOnHttpErrors = true;
         
-        // console.log(await (await gdrive.files.list({
-        //   q: "name='GDocJSON'"
-        // })).json());
+        const q = new ListQueryBuilder()
+          .push()
+            .e("name", "Untitledd")
+            .or()
+            .e("name", "Untitled")
+          .pop()
+          .and()
+          .in("root", "parents");
+        
+        // console.log(q.toString());
+        
+        console.log((await gdrive.files.list({
+          q
+        })).files.length);
+        
+        // console.log(await gdrive.files.newMetadataOnlyUploader()
+        //   .setRequestBody({
+        //     mimeType: MimeTypes.BINARY,
+        //     // parents: ["1NVmJNo_SNWkb9OqGdZRUyhG3RceNZ5wf"]
+        //   })
+        //   .execute()
+        // );
         
         // console.log(await gdrive.files.getJson("1fNnvTc2ud_f_eWb_xCgKQg4mgp5YIdE2"));
         
