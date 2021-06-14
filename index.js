@@ -37,20 +37,20 @@ function App() {
         // gdrive.files.fetchCoercesTypes = true;
         // gdrive.files.fetchRejectsOnHttpErrors = true;
         
-        const q = new ListQueryBuilder()
-          .push()
-            .e("name", "Untitledd")
-            .or()
-            .e("name", "Untitled")
-          .pop()
-          .and()
-          .in("root", "parents");
+        // const q = new ListQueryBuilder()
+        //   .push()
+        //     .e("name", "Untitledd")
+        //     .or()
+        //     .e("name", "Untitled")
+        //   .pop()
+        //   .and()
+        //   .in("root", "parents");
         
         // console.log(q.toString());
         
-        console.log((await gdrive.files.list({
-          q
-        })).files.length);
+        // console.log((await gdrive.files.list({
+        //   q
+        // })).files.length);
         
         // console.log(await gdrive.files.newMetadataOnlyUploader()
         //   .setRequestBody({
@@ -118,6 +118,22 @@ function App() {
         // }));
         
         // console.log(`result: '${await gdrive.permissions.delete("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", "anyoneWithLink")}'`);
+        
+        console.log(await gdrive.files.createIfNotExists({
+          q: new ListQueryBuilder()
+            .e("name", "condition_folder")
+            .and()
+            .e("mimeType", MimeTypes.FOLDER)
+            .and()
+            .in("root", "parents")
+        },
+          gdrive.files.newMetadataOnlyUploader()
+            .setRequestBody({
+              name: "condition_folder",
+              mimeType: MimeTypes.FOLDER,
+              parents: ["root"]
+            }))
+        );
         
         console.log("ok");
       } catch (error) {
