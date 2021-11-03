@@ -31,11 +31,12 @@ function App() {
         await GoogleSignin.hasPlayServices();
         await GoogleSignin.signIn();
         
-        gdrive = new GDrive();
+        const gdrive = new GDrive();
         gdrive.accessToken = (await GoogleSignin.getTokens()).accessToken;
         
         // gdrive.files.fetchCoercesTypes = true;
         // gdrive.files.fetchRejectsOnHttpErrors = true;
+        // gdrive.files.fetchTimeout = 500;
         
         // const q = new ListQueryBuilder()
         //   .push()
@@ -62,7 +63,7 @@ function App() {
         
         // console.log(await gdrive.files.getJson("1fNnvTc2ud_f_eWb_xCgKQg4mgp5YIdE2"));
         
-        // console.log(await gdrive.files.getText("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp"));
+        console.log(await gdrive.files.getText("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp"));
         
         // console.log(await gdrive.files.getMetadata("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp"));
         
@@ -112,32 +113,42 @@ function App() {
         
         // console.log(await gdrive.about.get({fields: "user"}));
         
-        // console.log(await gdrive.permissions.create("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", null, {
-        //   role: "writer",
-        //   type: "anyone"
-        // }));
+        // console.log(await gdrive.permissions.create(
+        //   "1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", {
+        //     fields: "*"
+        //   }, {
+        //     role: "writer",
+        //     type: "anyone"
+        //   })
+        // );
+        
+        console.log(await gdrive.files.getMetadata(
+          "1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", {
+            fields: "webViewLink"
+          }
+        ));
         
         // console.log(`result: '${await gdrive.permissions.delete("1K8zqOD_KqCzgU0Qerq9NhndSXOD3iyDp", "anyoneWithLink")}'`);
         
-        console.log(await gdrive.files.createIfNotExists({
-          q: new ListQueryBuilder()
-            .e("name", "condition_folder")
-            .and()
-            .e("mimeType", MimeTypes.FOLDER)
-            .and()
-            .in("root", "parents")
-        },
-          gdrive.files.newMetadataOnlyUploader()
-            .setRequestBody({
-              name: "condition_folder",
-              mimeType: MimeTypes.FOLDER,
-              parents: ["root"]
-            }))
-        );
+        // console.log(await gdrive.files.createIfNotExists({
+        //   q: new ListQueryBuilder()
+        //     .e("name", "condition_folder")
+        //     .and()
+        //     .e("mimeType", MimeTypes.FOLDER)
+        //     .and()
+        //     .in("root", "parents")
+        // },
+        //   gdrive.files.newMetadataOnlyUploader()
+        //     .setRequestBody({
+        //       name: "condition_folder",
+        //       mimeType: MimeTypes.FOLDER,
+        //       parents: ["root"]
+        //     }))
+        // );
         
         console.log("ok");
       } catch (error) {
-        console.log("oops", error.toString());
+        console.log("oops", error);
       }
     })();
   }, []);
