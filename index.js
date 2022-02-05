@@ -112,6 +112,15 @@ function App() {
     )));
   }, [invoker]);
   
+  const listFiles = useCallback(async () => {
+    console.log(await invoker(async () => (
+      await gdrive.files.list({
+        q: new ListQueryBuilder()
+          .in("folder_id", "parents")
+      })
+    )));
+  }, [invoker]);
+  
   const readFiles = useCallback(async () => {
     console.log(await invoker(async () => (
       await gdrive.files.getText("text_file_id")
@@ -149,6 +158,7 @@ function App() {
           ["create text file", createTextFile],
           ["empty trash", emptyTrash],
           ["get webViewLink", getWebViewLink],
+          ["list files", listFiles],
           ["read files", readFiles]
         ].map(([title, onPress], index) => (
           <Button
