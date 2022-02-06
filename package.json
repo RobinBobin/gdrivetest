@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@react-native-google-signin/google-signin": "^7.0.4",
-    "@robinbobin/react-native-google-drive-api-wrapper": "^1.0.0",
+    "@robinbobin/react-native-google-drive-api-wrapper": "../google-drive-api-wrapper/src/robinbobin-react-native-google-drive-api-wrapper-1.2.0.tgz",
     "react": "17.0.2",
     "react-native": "0.67.2"
   },

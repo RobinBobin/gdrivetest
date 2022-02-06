@@ -1239,6 +1239,14 @@
   resolved "https://registry.yarnpkg.com/@react-native/polyfills/-/polyfills-2.0.0.tgz#4c40b74655c83982c8cf47530ee7dc13d957b6aa"
   integrity sha512-K0aGNn1TjalKj+65D7ycc1//H9roAQ51GJVk5ZJQFb2teECGmzd86bYDC0aYdbRf7gtovescq4Zt6FR0tgXiHQ==
 
+"@robinbobin/react-native-google-drive-api-wrapper@../google-drive-api-wrapper/src/robinbobin-react-native-google-drive-api-wrapper-1.2.0.tgz":
+  version "1.2.0"
+  resolved "../google-drive-api-wrapper/src/robinbobin-react-native-google-drive-api-wrapper-1.2.0.tgz#3fd86d16e6ba8fa3f3f27eb2cf789f6518674dd9"
+  dependencies:
+    base64-js "^1.5.1"
+    simple-common-utils "^2.3.0"
+    utf8 "^3.0.0"
+
 "@robinbobin/react-native-google-drive-api-wrapper@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@robinbobin/react-native-google-drive-api-wrapper/-/react-native-google-drive-api-wrapper-1.1.0.tgz#e751df68f0661c11243f881a4aeebc1c554fcb0c"
