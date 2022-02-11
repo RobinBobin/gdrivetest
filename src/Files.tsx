@@ -16,7 +16,6 @@ const Files: React.VFC <CategoryProperties> = ({gdrive}) => {
     
     if (gdrive) {
       result.push({
-        title: "create bin file",
         onPress: async () => (
           await gdrive.files.newMultipartUploader()
             .setData([1, 2, 3, 4, 5], MimeTypes.BINARY)
@@ -25,11 +24,11 @@ const Files: React.VFC <CategoryProperties> = ({gdrive}) => {
               //parents: ["folder_id"]
             })
             .execute()
-        )
+        ),
+        title: "create bin file"
       });
       
       result.push({
-        title: "create folder",
         onPress: async () => (
           await gdrive.files.newMetadataOnlyUploader()
             .setRequestBody({
@@ -38,11 +37,11 @@ const Files: React.VFC <CategoryProperties> = ({gdrive}) => {
               parents: ["root"]
             })
             .execute()
-        )
+        ),
+        title: "create folder"
       });
       
       result.push({
-        title: "create if not exists",
         onPress: async () => (
           await gdrive.files.createIfNotExists(
             {
@@ -60,11 +59,11 @@ const Files: React.VFC <CategoryProperties> = ({gdrive}) => {
                 parents: ["root"]
               })
           )
-        )
+        ),
+        title: "create if not exists"
       });
       
       result.push({
-        title: "create text file",
         onPress: async () => {
           return (await gdrive.files.newMultipartUploader()
             .setData("cm9iaW4=", MimeTypes.TEXT)
@@ -73,20 +72,20 @@ const Files: React.VFC <CategoryProperties> = ({gdrive}) => {
               name: "base64 text",
             })
             .execute()).id;
-        }
+        },
+        title: "create text file"
       });
       
       result.push({
-        title: "empty trash",
         onPress: async () => {
           await gdrive.files.emptyTrash();
           
           return "Trash emptied";
-        }
+        },
+        title: "empty trash"
       });
       
       result.push({
-        title: "get webViewLink",
         onPress: async () => (
           await gdrive.files.getMetadata(
             "some_id",
@@ -94,28 +93,29 @@ const Files: React.VFC <CategoryProperties> = ({gdrive}) => {
               fields: "webViewLink"
             }
           )
-        )
+        ),
+        title: "get webViewLink"
       });
       
       result.push({
-        title: "list files",
         onPress: async () => (
           await gdrive.files.list({
             fields: "files/id,files/name",
             q: new ListQueryBuilder()
               .in("1Nxnus5JVwVjZMTxIi6_-9aVIfT0CPRKp", "parents")
           })
-        )
+        ),
+        title: "list files"
       });
       
       result.push({
-        title: "read text file",
-        onPress: async () => await gdrive.files.getText("text_file_id")
+        onPress: async () => await gdrive.files.getText("text_file_id"),
+        title: "read text file"
       });
       
       result.push({
-        title: "read bin file",
-        onPress: async () => await gdrive.files.getBinary("bin_file_id", undefined, "1-1")
+        onPress: async () => await gdrive.files.getBinary("bin_file_id", undefined, "1-1"),
+        title: "read bin file"
       });
     }
     

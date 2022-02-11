@@ -18,7 +18,7 @@ const GeneralCategory: React.VFC <GeneralCategoryProperties> = ({callbacks, name
       <Button
         onPress={async () => {
           try {
-            console.log(await onPress());
+            console.log((await onPress()) ?? "Operation succeeded");
           } catch (error) {
             console.log(error);
           }

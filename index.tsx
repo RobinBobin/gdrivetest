@@ -11,10 +11,13 @@ import React, {
 import {
   AppRegistry,
   SafeAreaView,
+  ScrollView,
   StyleSheet
 } from "react-native";
 import { name } from './app.json';
+import About from "./src/About";
 import Files from "./src/Files";
+import Permissions from "./src/Permissions";
 
 const App: React.VFC = () => {
   const [gdrive, setGDrive] = useState <GDrive> ();
@@ -36,7 +39,7 @@ const App: React.VFC = () => {
         
         gdrive.fetchCoercesTypes = true;
         gdrive.fetchRejectsOnHttpErrors = true;
-        gdrive.fetchTimeout = 1500;
+        gdrive.fetchTimeout = 3000;
         
         setGDrive(gdrive);
       } catch (error) {
@@ -49,14 +52,28 @@ const App: React.VFC = () => {
     <SafeAreaView
       style={styles.container}
     >
-      <Files
-        gdrive={gdrive}
-      />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.apiContainer}
+      >
+        <About
+          gdrive={gdrive}
+        />
+        <Files
+          gdrive={gdrive}
+        />
+        <Permissions
+          gdrive={gdrive}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  apiContainer: {
+    marginBottom: 20
+  },
   container: {
     backgroundColor: "cyan",
     flex: 1,
