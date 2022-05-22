@@ -1239,10 +1239,10 @@
   resolved "https://registry.npmjs.org/@react-native/polyfills/-/polyfills-2.0.0.tgz"
   integrity sha512-K0aGNn1TjalKj+65D7ycc1//H9roAQ51GJVk5ZJQFb2teECGmzd86bYDC0aYdbRf7gtovescq4Zt6FR0tgXiHQ==
 
-"@robinbobin/react-native-google-drive-api-wrapper@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.npmjs.org/@robinbobin/react-native-google-drive-api-wrapper/-/react-native-google-drive-api-wrapper-1.2.1.tgz"
-  integrity sha512-hPxsifAggCIouIFgEORfttuInkNdoaW5dPtGFwDKmrFJeYKLjGXNFTubvhBUthQmkmlNmypbnCCVD0X5u1y7Sw==
+"@robinbobin/react-native-google-drive-api-wrapper@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/@robinbobin/react-native-google-drive-api-wrapper/-/react-native-google-drive-api-wrapper-1.2.2.tgz"
+  integrity sha512-tausRpa9zU1l5P/PSrjbN2rvXLyjvjPNnVGYOsjFdB+tKRmN+NjQoK3pG0Iz0j9fg5d6Bt1CvUGJoKoXnK9X5g==
   dependencies:
     base64-js "^1.5.1"
     simple-common-utils "^2.3.0"
@@ -1396,9 +1396,9 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^17":
-  version "17.0.39"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.39.tgz#d0f4cde092502a6db00a1cded6e6bf2abb7633ce"
-  integrity sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==
+  version "17.0.45"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.45.tgz#9b3d5b661fd26365fefef0e766a1c6c30ccf7b3f"
+  integrity sha512-YfhQ22Lah2e3CHPsb93tRwIGNiSwkuz1/blk4e6QrWS0jQzCSNbGLtOEYhPg02W0yGTTmpajp7dCTbBAMN3qsg==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
