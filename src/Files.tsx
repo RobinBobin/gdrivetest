@@ -2,6 +2,7 @@ import {
   ListQueryBuilder,
   MimeTypes,
 } from '@robinbobin/react-native-google-drive-api-wrapper'
+import ResumableUploader from '@robinbobin/react-native-google-drive-api-wrapper/api/aux/uploaders/ResumableUploader'
 import React, { useMemo } from 'react'
 import GeneralCategory, {
   CategoryProperties,
@@ -24,6 +25,61 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
             })
             .execute(),
         title: 'create bin file',
+      })
+
+      result.push({
+        onPress: async () => {
+          const data = []
+
+          for (let i = 0; i < 256 * 1024; ++i) {
+            data[i] = i
+          }
+
+          const uploader: ResumableUploader = await gdrive.files
+            .newResumableUploader()
+            .setDataType(MimeTypes.BINARY)
+            .setShouldUseMultipleRequests(true)
+            .setRequestBody({
+              name: `resumable bin ${Date.now()}`,
+              //parents: ["folder_id"]
+            })
+            .execute()
+
+          console.log('upload chunk 1', await uploader.uploadChunk(data))
+          uploader.setContentLength(data.length)
+          console.log('upload status', await uploader.requestUploadStatus())
+
+          console.log('upload chunk 2', await uploader.uploadChunk([]))
+          console.log('upload status', await uploader.requestUploadStatus())
+
+          return "Your resumable upload didn't throw"
+        },
+        title: 'resumable upload (multi)',
+      })
+
+      result.push({
+        onPress: async () => {
+          const data = []
+
+          for (let i = 0; i < 256 * 1024; ++i) {
+            data[i] = i
+          }
+
+          const uploader = gdrive.files
+            .newResumableUploader()
+            .setData(data, MimeTypes.BINARY)
+            .setRequestBody({
+              name: `resumable bin ${Date.now()}`,
+              //parents: ["folder_id"]
+            }) as ResumableUploader
+
+          console.log(await uploader.execute())
+
+          console.log('upload status', await uploader.requestUploadStatus())
+
+          return "Your resumable upload didn't throw"
+        },
+        title: 'resumable upload (single)',
       })
 
       result.push({
