@@ -13,7 +13,9 @@ const GeneralCategory: React.VFC<GeneralCategoryProperties> = ({
           <Button
             onPress={async () => {
               try {
-                console.log((await onPress()) ?? 'Operation succeeded')
+                const result =
+                  (await onPress()) ?? `Operation '${title}' succeeded`
+                console.log(typeof result, result)
               } catch (error) {
                 console.log(error)
               }
@@ -27,7 +29,7 @@ const GeneralCategory: React.VFC<GeneralCategoryProperties> = ({
 
   return !buttons.length ? null : (
     <View style={styles.container}>
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{name}:</Text>
       {buttons}
     </View>
   )
@@ -36,7 +38,7 @@ const GeneralCategory: React.VFC<GeneralCategoryProperties> = ({
 export default GeneralCategory
 
 export interface CategoryProperties {
-  gdrive?: GDrive
+  gdrive: GDrive | undefined
 }
 
 interface Callback {

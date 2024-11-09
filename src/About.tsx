@@ -3,6 +3,7 @@ import GeneralCategory, {
   CategoryProperties,
   Callbacks,
 } from './GeneralCategory'
+import { STANDARD_PARAMETERS_FIELDS_ALL } from '@robinbobin/react-native-google-drive-api-wrapper'
 
 const About: React.VFC<CategoryProperties> = ({ gdrive }) => {
   const callbacks = useMemo<Callbacks>(() => {
@@ -10,7 +11,8 @@ const About: React.VFC<CategoryProperties> = ({ gdrive }) => {
 
     if (gdrive) {
       result.push({
-        onPress: async () => await gdrive.about.get('*'),
+        onPress: async () =>
+          await gdrive.about.get(STANDARD_PARAMETERS_FIELDS_ALL),
         title: 'get',
       })
     }
@@ -18,7 +20,7 @@ const About: React.VFC<CategoryProperties> = ({ gdrive }) => {
     return result
   }, [gdrive])
 
-  return <GeneralCategory callbacks={callbacks} name={'About:'} />
+  return <GeneralCategory callbacks={callbacks} name={'About'} />
 }
 
 export default About

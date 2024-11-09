@@ -1,17 +1,9 @@
 {
-  "name": "gdrivetest",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
-  },
   "dependencies": {
     "@react-native-google-signin/google-signin": "^7.0.4",
-    "@robinbobin/react-native-google-drive-api-wrapper": "^1.2.3",
+    "@robinbobin/react-native-google-drive-api-wrapper": "^2.2.0",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.2",
     "react-native": "0.67.2"
   },
@@ -31,18 +23,33 @@
     "react-test-renderer": "17.0.2",
     "typescript": "^4.4.4"
   },
+  "engines": {
+    "node": ">=16 <17"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx",
+      "node",
+      "ts",
+      "tsx"
+    ],
+    "preset": "react-native"
+  },
+  "name": "gdrivetest",
+  "private": true,
   "resolutions": {
     "@types/react": "^17"
   },
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
-  }
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "postinstall": "patch-package",
+    "start": "react-native start",
+    "test": "jest"
+  },
+  "version": "0.0.1",
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

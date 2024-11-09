@@ -1,8 +1,8 @@
 import {
   ListQueryBuilder,
-  MimeTypes,
+  mimeTypes,
+  ROOT_FOLDER_ID,
 } from '@robinbobin/react-native-google-drive-api-wrapper'
-import ResumableUploader from '@robinbobin/react-native-google-drive-api-wrapper/api/aux/uploaders/ResumableUploader'
 import React, { useMemo } from 'react'
 import GeneralCategory, {
   CategoryProperties,
@@ -16,9 +16,16 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
     if (gdrive) {
       result.push({
         onPress: async () =>
+          await gdrive.files.copy('1o_-rYoJH1WO6bHOWrATC_TdcGZG_8wZY'),
+        title: 'Copy',
+      })
+
+      result.push({
+        onPress: async () =>
           await gdrive.files
             .newMultipartUploader()
-            .setData([1, 2, 3, 4, 5], MimeTypes.BINARY)
+            .setData([1, 2, 3, 4, 5])
+            .setDataMimeType(mimeTypes.application.octetStream)
             .setRequestBody({
               name: 'bin',
               //parents: ["folder_id"]
@@ -29,55 +36,19 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
 
       result.push({
         onPress: async () => {
-          const data = []
+          const data = Array.from(Array(256 * 1024)).map((_, index) => index)
 
-          for (let i = 0; i < 256 * 1024; ++i) {
-            data[i] = i
-          }
-
-          const uploader: ResumableUploader = await gdrive.files
+          const uploadRequest = await gdrive.files
             .newResumableUploader()
-            .setDataType(MimeTypes.BINARY)
-            .setShouldUseMultipleRequests(true)
+            .setDataMimeType(mimeTypes.application.octetStream)
             .setRequestBody({
               name: `resumable bin ${Date.now()}`,
-              //parents: ["folder_id"]
             })
             .execute()
 
-          console.log('upload chunk 1', await uploader.uploadChunk(data))
-          uploader.setContentLength(data.length)
-          console.log('upload status', await uploader.requestUploadStatus())
+          uploadRequest.setContentLength(data.length)
 
-          console.log('upload chunk 2', await uploader.uploadChunk([]))
-          console.log('upload status', await uploader.requestUploadStatus())
-
-          return "Your resumable upload didn't throw"
-        },
-        title: 'resumable upload (multi)',
-      })
-
-      result.push({
-        onPress: async () => {
-          const data = []
-
-          for (let i = 0; i < 256 * 1024; ++i) {
-            data[i] = i
-          }
-
-          const uploader = gdrive.files
-            .newResumableUploader()
-            .setData(data, MimeTypes.BINARY)
-            .setRequestBody({
-              name: `resumable bin ${Date.now()}`,
-              //parents: ["folder_id"]
-            }) as ResumableUploader
-
-          console.log(await uploader.execute())
-
-          console.log('upload status', await uploader.requestUploadStatus())
-
-          return "Your resumable upload didn't throw"
+          return await uploadRequest.uploadChunk(data)
         },
         title: 'resumable upload (single)',
       })
@@ -88,8 +59,8 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
             .newMetadataOnlyUploader()
             .setRequestBody({
               name: 'Folder',
-              mimeType: MimeTypes.FOLDER,
-              parents: ['root'],
+              mimeType: mimeTypes.application.vndGoogleAppsFolder,
+              parents: [ROOT_FOLDER_ID],
             })
             .execute(),
         title: 'create folder',
@@ -99,20 +70,28 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
         onPress: async () =>
           await gdrive.files.createIfNotExists(
             {
-              q: new ListQueryBuilder()
-                .e('name', 'condition_folder')
-                .and()
-                .e('mimeType', MimeTypes.FOLDER)
-                .and()
-                .in('root', 'parents'),
+              q: new ListQueryBuilder('name', '=', 'condition_folder')
+                .and('mimeType', '=', mimeTypes.application.vndGoogleAppsFolder)
+                .and(ROOT_FOLDER_ID, 'in', 'parents'),
             },
             gdrive.files.newMetadataOnlyUploader().setRequestBody({
               name: 'condition_folder',
-              mimeType: MimeTypes.FOLDER,
-              parents: ['root'],
+              mimeType: mimeTypes.application.vndGoogleAppsFolder,
+              parents: [ROOT_FOLDER_ID],
             }),
           ),
         title: 'create if not exists',
+      })
+
+      result.push({
+        onPress: async () =>
+          await gdrive.files
+            .newMultipartUploader()
+            .setDataMimeType('application/json')
+            .setData(JSON.stringify({ a: 10, b: 20 }))
+            .setRequestBody({ name: 'my json file' })
+            .execute(),
+        title: 'create json file',
       })
 
       result.push({
@@ -120,7 +99,8 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
           return (
             await gdrive.files
               .newMultipartUploader()
-              .setData('cm9iaW4=', MimeTypes.TEXT)
+              .setData('cm9iaW4=')
+              .setDataMimeType('text/plain')
               .setIsBase64(true)
               .setRequestBody({
                 name: 'base64 text',
@@ -129,6 +109,13 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
           ).id
         },
         title: 'create text file',
+      })
+
+      result.push({
+        onPress: async () => {
+          await gdrive.files.delete('1X1RWHyA3RjWEh9mSl5Qomma7aEJlVRnA')
+        },
+        title: 'delete',
       })
 
       result.push({
@@ -152,8 +139,9 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
         onPress: async () =>
           await gdrive.files.list({
             fields: 'files/id,files/name',
-            q: new ListQueryBuilder().in(
+            q: new ListQueryBuilder(
               '1Nxnus5JVwVjZMTxIi6_-9aVIfT0CPRKp',
+              'in',
               'parents',
             ),
           }),
@@ -161,13 +149,23 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
       })
 
       result.push({
-        onPress: async () => await gdrive.files.getText('text_file_id'),
+        onPress: async () => await gdrive.files.getJson('json_file_id'),
+        title: 'read json file',
+      })
+
+      result.push({
+        onPress: async () =>
+          await gdrive.files.getText('text_file_id', {
+            range: '1-5',
+          }),
         title: 'read text file',
       })
 
       result.push({
         onPress: async () =>
-          await gdrive.files.getBinary('bin_file_id', undefined, '1-1'),
+          await gdrive.files.getBinary('bin_file_id', {
+            range: '2-4',
+          }),
         title: 'read bin file',
       })
     }
@@ -175,7 +173,7 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
     return result
   }, [gdrive])
 
-  return <GeneralCategory callbacks={callbacks} name={'Files:'} />
+  return <GeneralCategory callbacks={callbacks} name={'Files'} />
 }
 
 export default Files

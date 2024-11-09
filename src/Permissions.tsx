@@ -11,9 +11,9 @@ const Permissions: React.VFC<CategoryProperties> = ({ gdrive }) => {
     if (gdrive) {
       result.push({
         onPress: async () =>
-          await gdrive.permissions.create('file_id', undefined, {
-            role: '',
-            type: '',
+          await gdrive.permissions.create('file_id', {
+            role: 'reader',
+            type: 'anyone',
           }),
         title: 'create',
       })
@@ -31,7 +31,7 @@ const Permissions: React.VFC<CategoryProperties> = ({ gdrive }) => {
     return result
   }, [gdrive])
 
-  return <GeneralCategory callbacks={callbacks} name={'Permissions:'} />
+  return <GeneralCategory callbacks={callbacks} name={'Permissions'} />
 }
 
 export default Permissions

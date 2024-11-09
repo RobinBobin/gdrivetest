@@ -2,14 +2,15 @@
  * @format
  */
 
-import {GoogleSignin} from '@react-native-google-signin/google-signin'
-import {GDrive} from '@robinbobin/react-native-google-drive-api-wrapper'
-import React, {useEffect, useState} from 'react'
-import {AppRegistry, SafeAreaView, ScrollView, StyleSheet} from 'react-native'
-import {name} from './app.json'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { GDrive } from '@robinbobin/react-native-google-drive-api-wrapper'
+import React, { useEffect, useState } from 'react'
+import { AppRegistry, SafeAreaView, ScrollView, StyleSheet } from 'react-native'
+import { name } from './app.json'
 import About from './src/About'
 import Files from './src/Files'
 import Permissions from './src/Permissions'
+import MultipleResumableUpload from './src/MultipleResumableUpload'
 
 const App: React.VFC = () => {
   const [gdrive, setGDrive] = useState<GDrive>()
@@ -29,9 +30,6 @@ const App: React.VFC = () => {
         const gdrv = new GDrive()
 
         gdrv.accessToken = (await GoogleSignin.getTokens()).accessToken
-
-        gdrv.fetchCoercesTypes = true
-        gdrv.fetchRejectsOnHttpErrors = true
         gdrv.fetchTimeout = 3000
 
         setGDrive(gdrv)
@@ -50,6 +48,7 @@ const App: React.VFC = () => {
         style={styles.apiContainer}>
         <About gdrive={gdrive} />
         <Files gdrive={gdrive} />
+        <MultipleResumableUpload gdrive={gdrive} />
         <Permissions gdrive={gdrive} />
       </ScrollView>
     </SafeAreaView>
