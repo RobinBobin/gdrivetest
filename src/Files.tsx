@@ -1,6 +1,6 @@
 import {
   ListQueryBuilder,
-  mimeTypes,
+  MIME_TYPES,
   ROOT_FOLDER_ID,
 } from '@robinbobin/react-native-google-drive-api-wrapper'
 import React, { useMemo } from 'react'
@@ -25,7 +25,7 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
           await gdrive.files
             .newMultipartUploader()
             .setData([1, 2, 3, 4, 5])
-            .setDataMimeType(mimeTypes.application.octetStream)
+            .setDataMimeType(MIME_TYPES.application.octetStream)
             .setRequestBody({
               name: 'bin',
               //parents: ["folder_id"]
@@ -40,7 +40,7 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
 
           const uploadRequest = await gdrive.files
             .newResumableUploader()
-            .setDataMimeType(mimeTypes.application.octetStream)
+            .setDataMimeType(MIME_TYPES.application.octetStream)
             .setRequestBody({
               name: `resumable bin ${Date.now()}`,
             })
@@ -59,7 +59,7 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
             .newMetadataOnlyUploader()
             .setRequestBody({
               name: 'Folder',
-              mimeType: mimeTypes.application.vndGoogleAppsFolder,
+              mimeType: MIME_TYPES.application.vndGoogleAppsFolder,
               parents: [ROOT_FOLDER_ID],
             })
             .execute(),
@@ -71,12 +71,16 @@ const Files: React.VFC<CategoryProperties> = ({ gdrive }) => {
           await gdrive.files.createIfNotExists(
             {
               q: new ListQueryBuilder('name', '=', 'condition_folder')
-                .and('mimeType', '=', mimeTypes.application.vndGoogleAppsFolder)
+                .and(
+                  'mimeType',
+                  '=',
+                  MIME_TYPES.application.vndGoogleAppsFolder,
+                )
                 .and(ROOT_FOLDER_ID, 'in', 'parents'),
             },
             gdrive.files.newMetadataOnlyUploader().setRequestBody({
               name: 'condition_folder',
-              mimeType: mimeTypes.application.vndGoogleAppsFolder,
+              mimeType: MIME_TYPES.application.vndGoogleAppsFolder,
               parents: [ROOT_FOLDER_ID],
             }),
           ),
